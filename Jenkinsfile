@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh '''
                     docker rm -f S2_22053084_Server
-                    docker run -d --name S2_22053084_Server -p 42000:80 22053084_webimage
+                    ls -lart
                 '''
                 echo 'S2_22053084 : Web Server Creation Completed'
             }
