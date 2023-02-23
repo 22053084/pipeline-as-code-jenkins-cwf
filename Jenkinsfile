@@ -14,10 +14,11 @@ pipeline {
 			env.DOCKERRUN = sh(script: "sudo docker run -d --name S2_22053084_Server -p 42000:80 22053084_webimage", returnStdout: true).trim()
 	                env.RUN_BUILD_DATE = sh(returnStdout: true, script: "TZ='Asia/Singapore' date").trim()    
                     } catch (err) {
-    			echo "response: $err -- ${env.DOCKERREMOVE} -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"  
+    			echo "Docker error: $err -- ${env.DOCKERREMOVE} -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"  
 			abort
 		    }
-		    echo "S2_22053084 : Web Server Creation Completed: -- ${env.DOCKERREMOVE} -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"   
+		    echo "S2_22053084 : Web Server Creation Completed: -- ${env.DOCKERREMOVE} -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}" 
+		    sh(script: "sudo docker ps -a")
 		}
             }
         }
