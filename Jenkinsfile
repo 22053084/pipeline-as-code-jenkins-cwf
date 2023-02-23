@@ -15,15 +15,19 @@ pipeline {
                 echo 'S2_22053084 : Web Server Creation Completed'
             }
         }
-        stage('S3_22053084') {
-            steps {
-                echo 'S3_22053084 : API Test Completed'
-            }
-        }
-        stage('S4_22053084') {
-            steps {
-                echo 'S4_22053084 : DAST Security Test Completed'
-            }
+        stage('S3_S4_PARALLEL') {
+            parallel{
+                stage('S3_22053084') {
+                    steps {
+                        echo 'S3_22053084 : API Test Completed'
+                    }
+                }
+                stage('S4_22053084') {
+                    steps {
+                        echo 'S4_22053084 : DAST Security Test Completed'
+                    }
+                }    
+	    }
         }
         stage('S5_22053084') {
 	    steps {
