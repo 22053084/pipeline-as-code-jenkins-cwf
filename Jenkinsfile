@@ -8,11 +8,15 @@ pipeline {
         }
         stage('S2_22053084') {
             steps {
-                sh '''
-                    sudo docker rm -f S2_22053084_Server
-                    ls -lart
-                '''
-                echo 'S2_22053084 : Web Server Creation Completed'
+                //sh '''
+                //    sudo docker rm -f S2_22053084_Server
+                //    sudo docker run -d --name S2_22053084_Server -p 42000:80 22053084_webimage
+                //'''
+                //echo 'S2_22053084 : Web Server Creation Completed'
+		script {
+		    String response = sh(script: "sudo docker rm -f S2_22053084_Server", returnStdout: true).trim()
+                    echo response    
+		}	    
             }
         }
         stage('S3_S4_PARALLEL') {
@@ -32,7 +36,7 @@ pipeline {
         stage('S5_22053084') {
 	    steps {
                 script {
-                     env.RELEASE_WORK = input message: 'Do you want to release the work? [Y/n]',
+                     env.RELEASE_WORK = input message: 'Do you want to release the work? [Y/n]     ',
                              parameters: [string(defaultValue: '',
                                           description: '',
                                           name: 'Release_work')]
