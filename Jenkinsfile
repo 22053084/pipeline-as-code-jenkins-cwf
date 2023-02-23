@@ -16,7 +16,7 @@ pipeline {
   	        script {
 		    try {
 		        env.DOCKERRUN = sh(script: "sudo docker rm -f S2_22053084_Server", returnStdout: true).trim()
-	                env.RUN_BUILD_DATE = sh(returnStdout: true, script: "TZ="Asia/Singapore" date -u").trim()    
+	                env.RUN_BUILD_DATE = sh(returnStdout: true, script: "TZ='Asia/Singapore' date -u").trim()    
                     } catch (err) {
     			echo "response: $err -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"  
 			abort
