@@ -15,7 +15,7 @@ pipeline {
                 //echo 'S2_22053084 : Web Server Creation Completed'
 		script {
 		    final String response = sh(script: "sudo docker rm -f S2_22053084_Server", returnStdout: true).trim()
-                    echo 'response: --$reponse --'    
+                    echo 'response: --$response --'    
 		}	    
             }
         }
