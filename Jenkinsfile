@@ -13,13 +13,15 @@ pipeline {
                 //    sudo docker run -d --name S2_22053084_Server -p 42000:80 22053084_webimage
                 //'''
                 //echo 'S2_22053084 : Web Server Creation Completed'
-		try {
-		    env.DOCKERRUN = sh(script: "sudo docker rm -f S2_22053084_Server", returnStdout: true).trim()
-	            env.RUN_BUILD_DATE = sh(returnStdout: true, script: "date -u +'%Y-%m-%dT%H:%M:%SZ'").trim()    
-                } catch (err) {
-		    echo "response: $err -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"   
+  	        script {
+		    try {
+		        env.DOCKERRUN = sh(script: "sudo docker rm -f S2_22053084_Server", returnStdout: true).trim()
+	                env.RUN_BUILD_DATE = sh(returnStdout: true, script: "date -u +'%Y-%m-%dT%H:%M:%SZ'").trim()    
+                    } catch (err) {
+    			echo "response: $err -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"   
+		    }
+		    echo "S2_22053084 : Web Server Creation Completed: -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"   
 		}
-		echo "S2_22053084 : Web Server Creation Completed: -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"   
             }
         }
         stage('S3_S4_PARALLEL') {
