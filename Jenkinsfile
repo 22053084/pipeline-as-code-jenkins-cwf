@@ -26,15 +26,19 @@ pipeline {
             }
         }
         stage('S5_22053084') {
-            steps {
-                echo 'Do you want to release the work?'
-            }
+		    steps {
+        	  script {
+                env.RELEASE_WORK = input message: 'Do you want to release the work? [Y/n]',
+                             parameters: [string(defaultValue: '',
+                                          description: '',
+                                          name: 'Release_work')]
+              }
+		    }
         }
         stage('S6_22053084') {
             steps {
-                input message: 'Do you want to release the work?', ok: 'Y', submitter: 'Release'
-                if (input == 'Y') {
-                    echo 'Work Released - 22053084'
+                if (env.RELEASE_WORK == 'Y') {
+                    echo "Work Released - 22053084"
                 } else {
                     abort
                 }
