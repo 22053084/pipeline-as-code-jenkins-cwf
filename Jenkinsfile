@@ -9,7 +9,7 @@ pipeline {
         stage('S2_22053084') {
             steps {
                 sh '''
-                    docker rm -f S2_22053084_Server
+                    sudo docker rm -f S2_22053084_Server
                     ls -lart
                 '''
                 echo 'S2_22053084 : Web Server Creation Completed'
