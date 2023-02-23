@@ -14,9 +14,11 @@ pipeline {
                 //'''
                 //echo 'S2_22053084 : Web Server Creation Completed'
 		script {
-		    final String response = sh(script: "sudo docker rm -f S2_22053084_Server", returnStdout: true).trim()
-                    echo "response: -- $response --"    
-		}	    
+		    env.DOCKERRUN = sh(script: "sudo docker rm -f S2_22053084_Server", returnStdout: true).trim()
+	            env.RUN_BUILD_DATE = sh(returnStdout: true, script: "date -u +'%Y-%m-%dT%H:%M:%SZ'").trim()
+		    echo "response: -- ${env.DOCKERRUN} -- ${env.RUN_BUILD_DATE}"   
+		}
+		waitUntilServicesReady
             }
         }
         stage('S3_S4_PARALLEL') {
